@@ -1,0 +1,4 @@
+<!--フラッシュメッセージを表示する。これをレイアウトで読み込む-->
+<% flash.each do |message_type, message| %>
+  <div class="alert alert-<%= message_type %>"><%= message %></div>
+<% end %>
