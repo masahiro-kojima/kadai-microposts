@@ -1,6 +1,7 @@
 <!--ナビゲーションバー-->
 <header class="mb-4">
   <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <!--リンクを作成-->
     <a class="navbar-brand" href="/">Microposts</a>
     <!--ボタン-->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
@@ -9,9 +10,26 @@
 
     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
       <ul class="navbar-nav">
+        <!--もしログインできたら-->
+        <% if logged_in? %>
+          <li class="nav-item"><%= link_to 'Users', users_path, class: 'nav-link' %></li>
+          <!--ドロップダウンをする-->
+          <li class="nav-item dropdown">
+            <!--リンクをはる-->
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><%= current_user.name %></a>   
+            <!--ドロップダウンのリスト-->
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li class="dropdown-item"><%= link_to 'My profile', user_path(current_user) %></li>
+                <li class="dropdown-divider"></li>
+                <li class="dropdown-item"><%= link_to 'Logout', logout_path, method: :delete %></li>
+            </ul>
+          </li>
+        <% else %>
           <!--ユーザ登録リンク-->
-        <li class="nav-item"><a href="signup_path" class="nav-link">Signup</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">Login</a></li>
+        <li class="nav-item"><%= link_to 'Signup', signup_path, class: 'nav-link' %></li>
+        <!--ログインリンク-->
+        <li class="nav-item"><%= link_to 'Login', login_path, class: 'nav-link' %></li>
+        <% end %>
       </ul>
     </div>
   </nav>

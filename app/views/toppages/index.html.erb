@@ -1,8 +1,16 @@
 <!--toppages#indexで開く。ルートで開く-->
-<div class="center jumbotron">
-  <div class="text-center">
-    <h1>Welcome to the Microposts</h1>
-    <!--ユーザ登録リンクをはる-->
-    <%= link_to 'Sign up now!', signup_path, class: 'btn btn-lg btn-primary' %>
+<!--もしログインできたら-->
+<% if logged_in? %>
+<!--ログインユーザの名前を表示する-->
+
+  <p>ログイン完了ユーザ: <%= current_user.name %></p>
+  <!--ログインをしていなかったら-->
+<% else %>
+  <div class="center jumbotron">
+    <div class="text-center">
+      <h1>Welcome to the Microposts</h1>
+      <!--ユーザ登録リンクをはる-->
+      <%= link_to 'Sign up now!', signup_path, class: 'btn btn-lg btn-primary' %>
+    </div>
   </div>
-</div>
+<% end %>

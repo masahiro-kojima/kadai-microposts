@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+  # 今回は index, show において、事前に require_user_logged_in が実行される
+      before_action :require_user_logged_in, only: [:index, :show]
+      
   def index
     # idを基準に25降順に一覧表示する。ページネーションをつける
     @users = User.order(id: :desc).page(params[:page]).per(25)
@@ -14,8 +17,8 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-　def create
-　 # フォームから送信した情報からオブジェクトを作成する。
+def create
+ # フォームから送信した情報からオブジェクトを作成する。
     @user = User.new(user_params)
 # もし保存できたら
     if @user.save
@@ -30,7 +33,7 @@ class UsersController < ApplicationController
       # またnewビューへといく。
       render :new
     end
-  　end
+end
 
   private
   def user_params
