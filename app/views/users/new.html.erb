@@ -1,35 +1,32 @@
-<!--signupにアクセスするとusers#newが実行される-->
 <div class="text-center">
-  <h1>Sign up</h1>
+  <h1>Sign up</h1> 
 </div>
 
 <div class="row">
   <div class="col-sm-6 offset-sm-3">
-<!--フォームを作成する-->
+
     <%= form_with(model: @user, local: true) do |f| %>
-         <!--エラーのパーシャルを読み込む。エラーがあったら表示される。f.object は @user が代入されています-->
-    　<%= render 'layouts/error_messages', model: f.object %>
-      <!--名前を入力-->
+      <%= render 'layouts/error_messages', model: f.object %>
       <div class="form-group">
         <%= f.label :name, 'Name' %>
         <%= f.text_field :name, class: 'form-control' %>
       </div>
-      <!--メアドを入力-->
+
       <div class="form-group">
         <%= f.label :email, 'Email' %>
         <%= f.email_field :email, class: 'form-control' %>
       </div>
-      <!--パスワードを入力-->
+
       <div class="form-group">
         <%= f.label :password, 'Password' %>
         <%= f.password_field :password, class: 'form-control' %>
       </div>
-      <!--パスワード確認を入力-->
+
       <div class="form-group">
         <%= f.label :password_confirmation, 'Confirmation' %>
         <%= f.password_field :password_confirmation, class: 'form-control' %>
       </div>
-        <!--送信ボタンを設置-->
+
       <%= f.submit 'Sign up', class: 'btn btn-primary btn-block' %>
     <% end %>
   </div>

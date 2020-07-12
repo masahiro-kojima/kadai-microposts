@@ -1,15 +1,21 @@
-<!--toppages#indexで開く。ルートで開く-->
-<!--もしログインできたら-->
 <% if logged_in? %>
-<!--ログインユーザの名前を表示する-->
-
-  <p>ログイン完了ユーザ: <%= current_user.name %></p>
-  <!--ログインをしていなかったら-->
+  <div class="row">
+    <aside class="col-sm-4">
+      <%= form_with(model: @micropost, local: true) do |f| %>
+        <div class="form-group">
+          <%= f.text_area :content, class: 'form-control', rows: 5 %>
+        </div>
+        <%= f.submit 'Post', class: 'btn btn-primary btn-block' %>
+      <% end %>
+    </aside>
+    <div class="col-sm-8">
+      <%= render 'microposts/microposts', microposts: @microposts %>
+    </div>
+  </div>
 <% else %>
   <div class="center jumbotron">
     <div class="text-center">
       <h1>Welcome to the Microposts</h1>
-      <!--ユーザ登録リンクをはる-->
       <%= link_to 'Sign up now!', signup_path, class: 'btn btn-lg btn-primary' %>
     </div>
   </div>

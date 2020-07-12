@@ -25,6 +25,8 @@ gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
+gem 'pry-byebug', group: :development
+
 # has_secure_password は暗号化もしてくれますが、暗号化のために bcrypt Gem が必要
 gem 'bcrypt', '~> 3.1.7'
 
@@ -51,7 +53,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
-
+# ページネーションを利用
 gem 'kaminari'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

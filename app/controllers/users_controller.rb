@@ -1,43 +1,55 @@
 class UsersController < ApplicationController
-  # 今回は index, show において、事前に require_user_logged_in が実行される
-      before_action :require_user_logged_in, only: [:index, :show]
-      
+  before_action :require_user_logged_in, only: [:index, :show, :followings, :followers,:favorites]
+
   def index
-    # idを基準に25降順に一覧表示する。ページネーションをつける
     @users = User.order(id: :desc).page(params[:page]).per(25)
   end
 
   def show
-    # idを受け取りデータベースから引っ張る
     @user = User.find(params[:id])
+    @microposts = @user.microposts.order(id: :desc).page(params[:page])
+    # @favorites=@user.favorites.order(id: :desc).page(params[:page])
+    counts(@user)
   end
 
   def new
-    # ユーザー登録をする
     @user = User.new
   end
 
-def create
- # フォームから送信した情報からオブジェクトを作成する。
+  def create
     @user = User.new(user_params)
-# もし保存できたら
+
     if @user.save
-      # フラッシュメッセージを表示する
       flash[:success] = 'ユーザを登録しました。'
-      # showビュへといく。
-      # redirect_to user_url(@user)と同じ。ルートを見るとusers#showとなっている。
       redirect_to @user
     else
-      # 保存に失敗したら失敗メッセージを表示
       flash.now[:danger] = 'ユーザの登録に失敗しました。'
-      # またnewビューへといく。
       render :new
     end
-end
+  end
+
+  def followings
+    @user = User.find(params[:id])
+    @followings = @user.followings.page(params[:page])
+    counts(@user)
+  end
+  
+  def followers
+    @user = User.find(params[:id])
+    @followers = @user.followers.page(params[:page])
+    counts(@user)
+  end
+  
+  def likes
+    @user=User.find(params[:id])
+    @favorites=@user.favoritings.page(params[:page])
+    counts(@user)
+  end
+
 
   private
+
   def user_params
-    # 取得できるパラメータを制限するんだっけ？
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 end
