@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  get 'favorites/create'
-  get 'favorites/destroy'
-  get 'relationships/create'
-  get 'relationships/destroy'
   root to: 'toppages#index'
 
   get 'login', to: 'sessions#new'
@@ -13,9 +9,7 @@ Rails.application.routes.draw do
     member do
       get :followings
       get :followers
-    end
-    member do
-     get :likes
+      get :likes
     end
   end
   resources :microposts, only: [:create, :destroy]
